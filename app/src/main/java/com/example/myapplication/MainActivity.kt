@@ -36,33 +36,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.foundation.lazy.items
 import coil.compose.AsyncImage
+import com.example.myapplication.repository.UiState
+import com.example.myapplication.repository.model.CountryResponse
 import com.example.myapplication.repository.model.Flag
 import com.example.myapplication.repository.model.Name
 
 @Composable
-fun Showcase(viewModel: MainViewModel) {
-    val countries by viewModel.immutableCountiesData.observeAsState(emptyList())
-
-    if (countries.isNotEmpty()){
-        countries.forEachIndexed { index, country ->
-            Log.d("Main", "$index ${country.name}")
-        }
-    }
-
-
-}
-
-@Composable
 fun MainView(viewModel: MainViewModel) {
-    val countries by viewModel.immutableCountiesData.observeAsState(emptyList())
-    Column {
-        Text(text = "Countries App", modifier = Modifier.padding(start = 50.dp, end = 50.dp))
-        LazyColumn {
-            // import funkcji items z androidx.compose.foundation.lazy.items
-            items(countries) { country ->
-                CountryView(name = country.name, independent = country.independent, flag = country.flags, capital = country.capital)
-            }
-        }
+    val uiState by viewModel.immutableCountiesData.observeAsState(UiState())
+
+    when {
+        uiState.isLoading -> { MyLoadingView() }
+
+        uiState.error != null -> { MyErrorView() }
+
+        uiState.data != null -> { uiState.data?.let { MyListView(countries = it) } }
     }
 
 }
@@ -102,77 +90,34 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             viewModel.getData()
-
-//            Showcase(viewModel = viewModel)
             MainView(viewModel = viewModel)
 
         }
     }
 }
 
-//class MainActivity : ComponentActivity() {
-//    private val viewModel: MainViewModel by viewModels()
 
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            MyApplicationTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-////                    MainView()
-//                    viewModel.getData()
-//                    Showcase(viewModel = viewModel)
-//                }
-//            }
-//        }
-//    }
-//}
+@Composable
+fun MyErrorView() {
+//    wyświetla tekst z błędem lub snackbar
+}
 
-//@Composable
-//fun Showcase(viewModel: MainViewModel, modifier: Modifier = Modifier) {
-//
-//    val starships by viewModel.mutableCountriesData.observeAsState(emptyList())
-//
-//    Log.d("Main", "Starship length ${starships.isNotEmpty()}")
-//
-//    if (starships.isNotEmpty()) {
-//        starships.forEachIndexed { index, country ->
-//            Log.d("Main", "$index")
-//        }
-//    }
-//}
-//
-//
-//@Composable
-//fun MainView() {
-//
-//    Column (modifier = Modifier.padding(all = 5.dp)){
-//        Text(text = "Countries App", modifier = Modifier.padding(start = 50.dp, end = 50.dp))
-//        Row {
-//            Box(modifier = Modifier
-//                .border(BorderStroke(1.dp, Color.Black))
-//                .padding(all = 5.dp)){
-//                Column {
-//                    Text(text = "Polska", fontSize = 20.sp, fontWeight = FontWeight(1000))
-//                    Row {
-//                        Column {
-//                            Text(text = "Stolica: Warszawa")
-//                            Text(text = "Region: Europa")
-//                        }
-//                        Image(painter = painterResource(id = R.drawable.pl), contentDescription = "godło Polski")
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun CountriesPreview() {
-//    MyApplicationTheme {
-//        MainView()
-//    }
-//}
+@Composable
+fun MyLoadingView() {
+//    wyświetla loader
+}
+
+@Composable
+fun MyListView(countries: List<CountryResponse>) {
+//    wyświetla list w oparciu o LazyColumn lub LazyRow
+    Column {
+        Text(text = "Countries App", modifier = Modifier.padding(start = 50.dp, end = 50.dp))
+        LazyColumn {
+            // import funkcji items z androidx.compose.foundation.lazy.items
+            items(countries) { country ->
+                CountryView(name = country.name, independent = country.independent, flag = country.flags, capital = country.capital)
+            }
+        }
+    }
+}

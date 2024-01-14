@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.repository.CountryRepository
+import com.example.myapplication.repository.UiState
 import com.example.myapplication.repository.model.Country
 import com.example.myapplication.repository.model.CountryResponse
 import kotlinx.coroutines.Dispatchers
@@ -12,8 +13,8 @@ import kotlinx.coroutines.launch
 class MainViewModel : ViewModel() {
 
     private val countryRepository = CountryRepository()
-    val mutableCountriesData = MutableLiveData<List<CountryResponse>>()
-    val immutableCountiesData: LiveData<List<CountryResponse>> = mutableCountriesData
+    val mutableCountriesData = MutableLiveData<UiState<List<CountryResponse>>>()
+    val immutableCountiesData: LiveData<UiState<List<CountryResponse>>> = mutableCountriesData
 
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -24,8 +25,9 @@ class MainViewModel : ViewModel() {
                 if(request.isSuccessful){
                     request.message()
                     val countries = request.body()
+
                     Log.d("MainViewModel", "Request body: $countries")
-                    mutableCountriesData.postValue(countries)
+                    mutableCountriesData.postValue(UiState(countries))
                 }
 
 
