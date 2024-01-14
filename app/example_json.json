@@ -1,0 +1,96 @@
+
+{
+"imie": "Anna",
+"wiek": 25
+"miasto": "Kraków"
+}
+
+
+{
+"nazwa": "Samsung S23",
+"cena": 4299,99,
+"specyfikacja": [
+"procesor": "Snapdragon",
+ram: "8 GB",
+"bateria": "5000 mAh"
+]
+}
+
+
+{
+"owoce": {
+["nazwa": "Jabłko", "kolor": "czerwony"],
+["nazwa": "Banan", "kolor": "żółty"],
+["nazwa": "Pomarańcza", "kolor": "pomarańczowy"]
+}
+}
+
+
+{
+"drzewa": [
+{
+"nazwa": "Dąb",
+"wysokość": 20,
+"informacje": [
+"kraj": "Polska",
+"powierzchnia": 312696
+]
+},
+{
+"nazwa": "Sosna",
+"wysokość": 15,
+"informacje": [
+"kraj": "Szwecja",
+"powierzchnia": 450295
+]
+},
+{
+"nazwa": "Jesion",
+"wysokość": 18,
+"informacje": [
+"kraj": "Francja",
+"powierzchnia": 551695
+]
+}
+]
+}
+
+
+{
+"samochody": [
+{
+"marka": "Toyota",
+"model": "Corolla",
+"lata": 2022,
+"informacje": {
+"silnik": {
+"typ": "Benzynowy",
+"pojemnosc": "1.8L",
+"moc": "140 KM"
+},
+"nadwozie": {
+"typ": "Sedan",
+"kolor": "Czarny"
+}
+},
+"wyposazenie": ["klimatyzacja", "nawigacja", "tempomat"]
+},
+{
+"marka": "Honda",
+"model": "Civic",
+"rok": 2022,
+"informacje": {
+"silnik": {
+"typ": "Hybryda",
+"pojemnosc": "1.5L",
+"moc": "120 KM"
+},
+"nadwozie": {
+"typ": "Hatchback",
+"kolor": "Czerwony"
+}
+},
+"wyposazenie": ["klimatyzacja", "kamera cofania", "system bezpieczeństwa"]
+}
+]
+}
