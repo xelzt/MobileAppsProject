@@ -5,11 +5,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CountryService {
 
     @GET("all")
     suspend fun getCountryResponse(): Response<List<CountryResponse>>
+
+    @GET("name/{name}")
+    suspend fun getCountryDetailsResponse(@Path("name") name: String): Response<List<Country>>
 
     companion object {
         private const val COUNTRIES_URL = "https://restcountries.com/v3.1/"

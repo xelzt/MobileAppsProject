@@ -18,17 +18,17 @@ class MtgMainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val request = mtgReposity.getMTGResponse()
-                Log.d("MainViewModel", "request: ${request.raw()}")
+                Log.d("com.example.myapplication.MainViewModel", "request: ${request.raw()}")
 
                 if(request.isSuccessful){
                     request.message()
                     val countries = request.body()?.cards
-                    Log.d("MainViewModel", "Request body: $countries")
+                    Log.d("com.example.myapplication.MainViewModel", "Request body: $countries")
                     mutableMtgCardsData.postValue(countries)
                 }
 
             } catch (e: Exception) {
-                Log.e("MainViewModel", "Operacja nie powiodla sie", e)
+                Log.e("com.example.myapplication.MainViewModel", "Operacja nie powiodla sie", e)
             }
         }
     }
