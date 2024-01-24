@@ -1,8 +1,10 @@
 package com.example.myapplication.repository.model
 
 data class Country(
-    val name: String,
-    val official: String
+    val name: Name,
+    val region: String,
+    val area: Int,
+    val flags: Flag
 )
 
 data class Name(
